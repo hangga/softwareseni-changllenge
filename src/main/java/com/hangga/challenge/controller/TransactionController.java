@@ -18,7 +18,7 @@ public class TransactionController {
     TransactionRepository transactionRepository;
 
     @GetMapping("/")
-    public List<Transaction> all(){
+    public List<Transaction> all() {
         return transactionRepository.findAll();
     }
 
@@ -26,7 +26,7 @@ public class TransactionController {
     public Transaction add(@PathVariable("id") Long transaction_id,
                            @RequestParam("amount") Double amount,
                            @RequestParam("type") String type,
-                           @RequestParam("parent_id") Long parent_id){
+                           @RequestParam("parent_id") Long parent_id) {
         Transaction transaction = new Transaction();
         transaction.setId(transaction_id);
         transaction.setType(type);
@@ -41,6 +41,7 @@ public class TransactionController {
 
     /**
      * A json list of all transaction ids that share the same type $type.
+     *
      * @param em
      * @param type
      * @return
@@ -56,15 +57,15 @@ public class TransactionController {
     /**
      * A sum of all transactions that are transitively linked by their parent_id to
      * $transaction_id.
+     *
      * @param em
      * @param transaction_id
      * @return
      */
     @GetMapping("/sum/{transaction_id}")
-    public Transaction getTransactionSum(EntityManager em, Long transaction_id) {
-        TypedQuery<Transaction> query = em.createQuery(
-                "SELECT sum(amount) as sum FROM transaction WHERE parent_id = :transaction_id", Transaction.class);
-        return query.setParameter("transaction_id", transaction_id).getSingleResult();
+    public Long getAmountSum(EntityManager em, Long transaction_id) {
+        return ((Number)em.createNativeQuery("SELECT sum(amount) FROM transaction WHERE parent_id = :transaction_id")
+                .getSingleResult()).longValue();
     }
 
 }

@@ -1,6 +1,9 @@
 package com.hangga.challenge.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "transaction")
@@ -12,6 +15,10 @@ public class Transaction {
 
     @Column(name = "parent_id", nullable = false)
     Long parent_id;
+    @Column(name = "type", nullable = false)
+    String type;
+    @Column(name = "amount", nullable = false)
+    Double amount;
 
     public void setId(Long id) {
         this.id = id;
@@ -28,10 +35,4 @@ public class Transaction {
     public void setAmount(Double amount) {
         this.amount = amount;
     }
-
-    @Column(name = "type", nullable = false)
-    String type;
-
-    @Column(name = "amount", nullable = false)
-    Double amount;
 }
