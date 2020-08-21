@@ -29,6 +29,7 @@ public class TransactionController {
                            @RequestParam("parent_id") Long parent_id) {
         Transaction transaction = new Transaction();
         transaction.setId(transaction_id);
+        transaction.setParent_id(parent_id);
         transaction.setType(type);
         transaction.setAmount(amount);
         return transactionRepository.save(transaction);
