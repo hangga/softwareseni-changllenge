@@ -12,7 +12,6 @@ public class Transaction {
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     Long id;
-
     @Column(name = "parent_id", nullable = false)
     Long parent_id;
     @Column(name = "type", nullable = false)
